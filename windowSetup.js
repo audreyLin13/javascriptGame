@@ -10,3 +10,7 @@ var ctx = canvas.getContext("2d");
 ctx.font = "40px Tahoma";
 ctx.textAlign = "center";
 ctx.fillText("Welcome to Hangman! ⭐🌷", canvas.width/2, 50);
+
+ctx.font = "40px Tahoma";
+ctx.fillText("Guess a Letter!", canvas.width*0.58, canvas.height*0.58);
+
