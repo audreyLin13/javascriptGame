@@ -14,3 +14,5 @@ ctx.fillText("Welcome to Hangman! ⭐🌷", canvas.width/2, 50);
 ctx.font = "40px Tahoma";
 ctx.fillText("Guess a Letter!", canvas.width*0.58, canvas.height*0.58);
 
+ctx.font = "40px Tahoma";
+ctx.fillText("Wrong Guesses 😔:", canvas.width*0.44, canvas.height*0.8);
