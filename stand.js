@@ -1,5 +1,9 @@
 var canvas = document.getElementById("mainCanvas");
 var ctx = canvas.getContext("2d");
+ctx.strokeStyle = "deepPink";
+ctx.lineWidth = 5;
+
+
 
 ctx.beginPath();
 ctx.moveTo(130,50);

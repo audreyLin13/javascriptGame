@@ -1,5 +1,19 @@
+
 const words = ["apple", "small", "brain", "legal", "spoon"];
 const wordAndLength = [];
+
+function update(){
+    ctx.clearRect(500, 100, 640, 140);
+    ctx.clearRect(780, 460, 500, 80);
+};
+
+function newGame() {
+    wrongGuessNumber = 0;
+    listOfGuesses = [];
+    rightGuessNumber = 0;
+    update();
+};
+
 function getRandom(myList){
     return myList[Math.floor(Math.random()*myList.length)];
 };
@@ -31,7 +45,18 @@ function countSpacing(letterToSearch, word) {
         indexes.push(i);
         }
     }
+    if (indexes.length == 2) {
+        rightGuessNumber += 2;
+    } else if (indexes.length == 1) {
+        rightGuessNumber +=1;
+    };
     return indexes
+};
+
+function checkWin() {
+    if (rightGuessNumber == 5) {
+        alert("congratulations! you did it!");
+    };
 };
 
 function drawLetter(letterToDraw, ctx, word) {
@@ -47,6 +72,7 @@ function drawLetter(letterToDraw, ctx, word) {
         let xCoord = canvas.width*0.415 + spacing*120;
         ctx.fillText(letterToDraw, xCoord, canvas.height*0.3);
     };
+    
 };
 
 function wrongLetter(letter, ctx) {
@@ -57,6 +83,7 @@ function wrongLetter(letter, ctx) {
 
 var wrongGuessNumber = 0;
 var listOfGuesses = [];
+var rightGuessNumber = 0;
 
 function checkLetter(letter) {
     let lower = letter.toLowerCase()
@@ -69,9 +96,27 @@ function checkLetter(letter) {
         listOfGuesses.push(lower);
     } else if (result == false) {
         wrongGuessNumber += 1;
+        if (wrongGuessNumber == 1) {
+            head();
+        } else if (wrongGuessNumber == 2) {
+            torso();
+        } else if (wrongGuessNumber == 3) {
+            leftArm()
+        } else if (wrongGuessNumber == 4) {
+            rightArm()
+        } else if (wrongGuessNumber == 5) {
+            leftLeg()
+        } else if (wrongGuessNumber == 6) {
+            rightLeg()
+        } else if (wrongGuessNumber == 7) {
+            leftEye()
+        } else if (wrongGuessNumber == 8) {
+            rightEye()
+        };
         wrongLetter(lower, ctx);
         listOfGuesses.push(lower);
-    } ;
+    };
+    checkWin();
 };
 
 function getInputValue(e){

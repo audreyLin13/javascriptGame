@@ -1,0 +1,16 @@
+.newGame {
+    position:absolute; 
+    top:10%; 
+    left:85%; 
+    height:50px; 
+    width:180px; 
+    background-color: lightseagreen; 
+    border: 5px solid mediumaquamarine; 
+    color: white;
+    font-size:25px; 
+    text-align:center"
+}
+
+.newGame:hover{
+    background-color:seagreen;
+}
