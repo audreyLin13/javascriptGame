@@ -14,3 +14,53 @@
 .newGame:hover{
     background-color:seagreen;
 }
+.levelOne {
+    position:absolute; 
+    top:18%; 
+    left:85%; 
+    height:50px; 
+    width:180px; 
+    background-color: purple; 
+    border: 5px solid mediumpurple; 
+    color: white;
+    font-size:25px;
+    text-align:center"
+}
+
+.levelOne:hover{
+    background-color:indigo;
+}
+
+.levelTwo {
+    position:absolute; 
+    top:26%; 
+    left:85%; 
+    height:50px; 
+    width:180px; 
+    background-color: royalblue; 
+    border: 5px solid cornflowerblue; 
+    color: white;
+    font-size:25px; 
+    text-align:center
+}
+
+.levelTwo:hover {
+    background-color: navy;
+}
+
+.levelThree {
+    position:absolute; 
+    top:34%; 
+    left:85%; 
+    height:50px; 
+    width:180px; 
+    background-color: tomato; 
+    border: 5px solid lightsalmon; 
+    color: white;
+    font-size:25px; 
+    text-align:center
+}
+
+.levelThree:hover{
+    background-color: chocolate;
+}

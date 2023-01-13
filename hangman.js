@@ -10,6 +10,14 @@ function head() {
     ctx1.stroke();
 };
 
+function smile() {
+    ctx1.beginPath();
+    ctx1.arc(250, 140, 30, 0, 1 * Math.PI);
+    ctx1.lineWidth = 5;
+    ctx1.strokeStyle = "deepPink";
+    ctx1.stroke();
+};
+
 
 function torso() {
     ctx1.beginPath();

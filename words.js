@@ -1,16 +1,29 @@
+windowWidth = window.innerWidth;
+windowHeight = window.innerHeight;
+var canvas = document.getElementById("mainCanvas");
+var ctx = canvas.getContext("2d");
+const fiveWords = ["apple", "small", "brain", "legal", "spoon"];
+const sixWords = ["bishop", "office", "during", "theory", "policy"];
+const sevenWords = ["address", "academy", "fortune", "counter", "genuine"];
+var wrongGuessNumber = 0;
+var listOfGuesses = [];
+var rightGuessNumber = 0;
+var myWord = newWord();
+var wordLength = 5;
 
-const words = ["apple", "small", "brain", "legal", "spoon"];
-const wordAndLength = [];
+
 
 function update(){
-    ctx.clearRect(500, 100, 640, 140);
-    ctx.clearRect(780, 460, 500, 80);
+    drawSetup();
+    drawStand();
+    drawBlanks();
 };
 
 function newGame() {
     wrongGuessNumber = 0;
     listOfGuesses = [];
     rightGuessNumber = 0;
+    myWord = newWord();
     update();
 };
 
@@ -18,25 +31,31 @@ function getRandom(myList){
     return myList[Math.floor(Math.random()*myList.length)];
 };
 
-for (var i=0; i < words.length; i++) {
-    const wordPair = [words[i], words[i].length]
-    wordAndLength.push(wordPair)
+function newWord() {
+    var wordOfChoice = getRandom(fiveWords);
+    return wordOfChoice;
 };
 
-let blanks = "";
-var wordOfChoice = getRandom(words)
-for (var x=0; x < wordOfChoice.length; x++) {
-    blanks += "_____ ";
+
+function drawBlanks() {
+    let myBlanks = "";
+    ctx.font = "40px Tahoma";
+    ctx.textAlign = "center";
+    if (wordLength == 5) {
+        myBlanks = "_____ _____ _____ _____ _____ ";
+        ctx.fillText(myBlanks, canvas.width*0.6, canvas.height*0.3);
+    } else if (wordLength == 6) {
+        myBlanks = "_____ _____ _____ _____ _____ _____ ";
+        ctx.fillText(myBlanks, canvas.width*0.55, canvas.height*0.3);
+    } else if (wordLength == 7) {
+        myBlanks = "____ ____ ____ ____ ____ ____ ____ ";
+        ctx.fillText(myBlanks, canvas.width*0.55, canvas.height*0.3);
+    };
 };
 
-windowWidth = window.innerWidth;
-windowHeight = window.innerHeight;
-
-var canvas = document.getElementById("mainCanvas");
-var ctx = canvas.getContext("2d");
-ctx.font = "40px Tahoma";
-ctx.textAlign = "center";
-ctx.fillText(blanks, canvas.width*0.6, canvas.height*0.3);
+drawSetup();
+drawStand();
+drawBlanks();
 
 function countSpacing(letterToSearch, word) {
     const indexes = [];
@@ -44,7 +63,7 @@ function countSpacing(letterToSearch, word) {
         if (word[i] === letterToSearch) {
         indexes.push(i);
         }
-    }
+    };
     if (indexes.length == 2) {
         rightGuessNumber += 2;
     } else if (indexes.length == 1) {
@@ -54,46 +73,69 @@ function countSpacing(letterToSearch, word) {
 };
 
 function checkWin() {
-    if (rightGuessNumber == 5) {
-        alert("congratulations! you did it!");
+    if (rightGuessNumber == wordLength) {
+        alert("congratulations! you did it! click 'new game' to continue playing!");
     };
 };
 
-function drawLetter(letterToDraw, ctx, word) {
+function drawLetter(letterToDraw, ctxDraw, word) {
     spacing = countSpacing(letterToDraw, word);
-    ctx.font = "100px Tahoma";
-
-    if (spacing.length > 1) {
-        let firstXCoord = canvas.width*0.415 + spacing[0]*120;
-        let secondXCoord = canvas.width*0.415 + spacing[1]*120;
-        ctx.fillText(letterToDraw, firstXCoord, canvas.height*0.3);
-        ctx.fillText(letterToDraw, secondXCoord, canvas.height*0.3);
-    } else {
-        let xCoord = canvas.width*0.415 + spacing*120;
-        ctx.fillText(letterToDraw, xCoord, canvas.height*0.3);
+    ctxDraw.font = "100px Tahoma";
+    ctxDraw.fillStyle = "black";
+    if (wordLength == 5) {
+        if (spacing.length > 1) {
+            let firstXCoord = canvas.width*0.415 + spacing[0]*120;
+            let secondXCoord = canvas.width*0.415 + spacing[1]*120;
+            ctxDraw.fillText(letterToDraw, firstXCoord, canvas.height*0.3);
+            ctxDraw.fillText(letterToDraw, secondXCoord, canvas.height*0.3);
+        } else {
+            let xCoord = canvas.width*0.415 + spacing*120;
+            ctxDraw.fillText(letterToDraw, xCoord, canvas.height*0.3);
+        };
+    } else if (wordLength == 6) {
+        if (spacing.length > 1) {
+            let firstXCoord = canvas.width*0.33 + spacing[0]*120;
+            let secondXCoord = canvas.width*0.33 + spacing[1]*120;
+            ctxDraw.fillText(letterToDraw, firstXCoord, canvas.height*0.3);
+            ctxDraw.fillText(letterToDraw, secondXCoord, canvas.height*0.3);
+        } else {
+            let xCoord = canvas.width*0.33 + spacing*120;
+            ctxDraw.fillText(letterToDraw, xCoord, canvas.height*0.3);
+        };
+    } else if (wordLength == 7) {
+        if (spacing.length > 1) {
+            let firstXCoord = canvas.width*0.33 + spacing[0]*100;
+            let secondXCoord = canvas.width*0.33 + spacing[1]*100;
+            ctxDraw.fillText(letterToDraw, firstXCoord, canvas.height*0.3);
+            ctxDraw.fillText(letterToDraw, secondXCoord, canvas.height*0.3);
+        } else {
+            let xCoord = canvas.width*0.33 + spacing*100;
+            ctxDraw.fillText(letterToDraw, xCoord, canvas.height*0.3);
+        };
     };
     
 };
 
-function wrongLetter(letter, ctx) {
-    ctx.font = "40px Tahoma";
+function wrongLetter(letter, ctxWrong) {
+    ctxWrong.font = "40px Tahoma";
+    ctxWrong.fillStyle = "deepPink";
     let xCoord = canvas.width*0.56 +wrongGuessNumber*35;
-    ctx.fillText(letter, xCoord, canvas.height*0.8);
+    ctxWrong.fillText(letter, xCoord, canvas.height*0.8);
 };
 
-var wrongGuessNumber = 0;
-var listOfGuesses = [];
-var rightGuessNumber = 0;
 
 function checkLetter(letter) {
-    let lower = letter.toLowerCase()
-    let result = wordOfChoice.includes(lower);
+    let lower = letter.toLowerCase();
+    let result = myWord.includes(lower);
     console.log(result);
     if (listOfGuesses.includes(lower) == true){
         alert("you've guessed this letter already!");
     } else if (result == true) {
-        drawLetter(lower, ctx, wordOfChoice);
+        drawLetter(lower, ctx, myWord);
         listOfGuesses.push(lower);
+        setTimeout(() => {
+            checkWin();
+        }, 500);
     } else if (result == false) {
         wrongGuessNumber += 1;
         if (wrongGuessNumber == 1) {
@@ -101,22 +143,26 @@ function checkLetter(letter) {
         } else if (wrongGuessNumber == 2) {
             torso();
         } else if (wrongGuessNumber == 3) {
-            leftArm()
+            leftArm();
         } else if (wrongGuessNumber == 4) {
-            rightArm()
+            rightArm();
         } else if (wrongGuessNumber == 5) {
-            leftLeg()
+            leftLeg();
         } else if (wrongGuessNumber == 6) {
-            rightLeg()
+            rightLeg();
         } else if (wrongGuessNumber == 7) {
-            leftEye()
+            leftEye();
         } else if (wrongGuessNumber == 8) {
-            rightEye()
+            rightEye();
+        } else if (wrongGuessNumber == 9) {
+            smile();
+            setTimeout(() => {
+                alert("hm, you kinda suck. maybe try 'new game'?");
+            }, 500);
         };
         wrongLetter(lower, ctx);
         listOfGuesses.push(lower);
     };
-    checkWin();
 };
 
 function getInputValue(e){
