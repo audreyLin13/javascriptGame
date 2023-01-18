@@ -9,9 +9,13 @@ var wrongGuessNumber = 0;
 var listOfGuesses = [];
 var rightGuessNumber = 0;
 var myWord = newWord();
-var wordLength = 5;
+var wordLength = 7;
 
-
+function buttonPressed(length) {
+    wordLength = length;
+    newGame();
+    drawBlanks();
+};
 
 function update(){
     drawSetup();
@@ -32,7 +36,13 @@ function getRandom(myList){
 };
 
 function newWord() {
-    var wordOfChoice = getRandom(fiveWords);
+    if (wordLength == 7) {
+        var wordOfChoice = getRandom(sevenWords);
+    } else if (wordLength == 6) {
+        var wordOfChoice = getRandom(sixWords);
+    } else if (wordLength == 5) {
+        var wordOfChoice = getRandom(fiveWords);
+    };
     return wordOfChoice;
 };
 
@@ -56,6 +66,9 @@ function drawBlanks() {
 drawSetup();
 drawStand();
 drawBlanks();
+setTimeout(() => {
+    alert("click 'new game' to begin playing!");
+}, 500);
 
 function countSpacing(letterToSearch, word) {
     const indexes = [];

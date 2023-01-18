@@ -5,6 +5,7 @@
         <title>Hangman!</title>
         <link rel="stylesheet" href="style.css">
         <script defer type="text/javascript" src="./windowSetup.js"></script>
+        <script defer type="text/javascript" src="./lists.js"></script>
         <script defer type="text/javascript" src="./hangman.js"></script>        
         <script defer type="text/javascript" src="./stand.js"></script>
         <script defer type="text/javascript" src="./words.js"></script>
@@ -17,9 +18,9 @@
         style="position:absolute; top:50%; left:70%; height:70px; width:70px; 
         border:5px solid deeppink; font-size:70px; text-align:center"/>
         <button type="button" class=newGame onclick="newGame()">NEW GAME</button>
-        <button type="button" class=levelOne>LEVEL 1</button>
-        <button type="button" class=levelTwo>LEVEL 2</button>
-        <button type="button" class=levelThree>LEVEL 3</button>
+        <button type="button" class=levelOne onclick="buttonPressed(7)">LEVEL 1</button>
+        <button type="button" class=levelTwo onclick="buttonPressed(6)">LEVEL 2</button>
+        <button type="button" class=levelThree onclick="buttonPressed(5)">LEVEL 3</button>
     </body>
 
 </html>
