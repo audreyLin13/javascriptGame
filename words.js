@@ -1,10 +1,31 @@
+//sources: 
+//https://stackoverflow.com/questions/2788191/how-to-check-whether-a-button-is-clicked-by-using-javascript
+//https://www.w3schools.com/jsref/jsref_isinteger.asp
+//https://www.tutorialrepublic.com/faq/how-to-include-a-javascript-file-in-another-javascript-file.php
+//https://www.programiz.com/javascript/examples/first-letter-uppercase
+
+var sevenWords = [];
+var lines = document.getElementById("txtAreaOne").value.split('\n');
+for(var i = 0;i < lines.length;i++){
+    sevenWords.push(lines[i].trim().toLowerCase());
+};
+
+var sixWords = [];
+var linesTwo = document.getElementById("txtAreaTwo").value.split('\n');
+for(var x = 0;x < linesTwo.length;x++){
+    sixWords.push(linesTwo[x].trim().toLowerCase());
+};
+
+var fiveWords = [];
+var linesThree = document.getElementById("txtAreaThree").value.split('\n');
+for(var y = 0;y < linesThree.length;y++){
+    fiveWords.push(linesThree[y].trim().toLowerCase());
+};
+
 windowWidth = window.innerWidth;
 windowHeight = window.innerHeight;
 var canvas = document.getElementById("mainCanvas");
 var ctx = canvas.getContext("2d");
-const fiveWords = ["apple", "small", "brain", "legal", "spoon"];
-const sixWords = ["bishop", "office", "during", "theory", "policy"];
-const sevenWords = ["address", "academy", "fortune", "counter", "genuine"];
 var wrongGuessNumber = 0;
 var listOfGuesses = [];
 var rightGuessNumber = 0;
@@ -28,6 +49,7 @@ function newGame() {
     listOfGuesses = [];
     rightGuessNumber = 0;
     myWord = newWord();
+    alert(myWord);
     update();
 };
 
@@ -54,12 +76,15 @@ function drawBlanks() {
     if (wordLength == 5) {
         myBlanks = "_____ _____ _____ _____ _____ ";
         ctx.fillText(myBlanks, canvas.width*0.6, canvas.height*0.3);
+        ctx.fillText("Currently: Level 3", windowWidth - 280, windowHeight - 100)
     } else if (wordLength == 6) {
         myBlanks = "_____ _____ _____ _____ _____ _____ ";
         ctx.fillText(myBlanks, canvas.width*0.55, canvas.height*0.3);
+        ctx.fillText("Currently: Level 2", windowWidth - 280, windowHeight - 100)
     } else if (wordLength == 7) {
         myBlanks = "____ ____ ____ ____ ____ ____ ____ ";
         ctx.fillText(myBlanks, canvas.width*0.55, canvas.height*0.3);
+        ctx.fillText("Currently: Level 1", windowWidth - 280, windowHeight - 100)
     };
 };
 
@@ -67,8 +92,8 @@ drawSetup();
 drawStand();
 drawBlanks();
 setTimeout(() => {
-    alert("click 'new game' to begin playing!");
-}, 500);
+    alert("Welcome to Hangman! click 'new game' to begin playing!");
+}, 300);
 
 function countSpacing(letterToSearch, word) {
     const indexes = [];
@@ -81,6 +106,8 @@ function countSpacing(letterToSearch, word) {
         rightGuessNumber += 2;
     } else if (indexes.length == 1) {
         rightGuessNumber +=1;
+    } else if (indexes.length == 3) {
+        rightGuessNumber += 3
     };
     return indexes
 };
@@ -88,6 +115,8 @@ function countSpacing(letterToSearch, word) {
 function checkWin() {
     if (rightGuessNumber == wordLength) {
         alert("congratulations! you did it! click 'new game' to continue playing!");
+    } else {
+        document.getElementById("letterGuess").focus();
     };
 };
 
@@ -96,7 +125,14 @@ function drawLetter(letterToDraw, ctxDraw, word) {
     ctxDraw.font = "100px Tahoma";
     ctxDraw.fillStyle = "black";
     if (wordLength == 5) {
-        if (spacing.length > 1) {
+        if (spacing.length = 3) {
+            let firstXCoord = canvas.width*0.415 + spacing[0]*120;
+            let secondXCoord = canvas.width*0.415 + spacing[1]*120;
+            let thirdXCoord = canvas.width*0.415 + spacing[2]*120;
+            ctxDraw.fillText(letterToDraw, firstXCoord, canvas.height*0.3);
+            ctxDraw.fillText(letterToDraw, secondXCoord, canvas.height*0.3);
+            ctxDraw.fillText(letterToDraw, thirdXCoord, canvas.height*0.3);
+        } else if (spacing.length = 2) {
             let firstXCoord = canvas.width*0.415 + spacing[0]*120;
             let secondXCoord = canvas.width*0.415 + spacing[1]*120;
             ctxDraw.fillText(letterToDraw, firstXCoord, canvas.height*0.3);
@@ -106,7 +142,14 @@ function drawLetter(letterToDraw, ctxDraw, word) {
             ctxDraw.fillText(letterToDraw, xCoord, canvas.height*0.3);
         };
     } else if (wordLength == 6) {
-        if (spacing.length > 1) {
+        if (spacing.length == 3) {
+            let firstXCoord = canvas.width*0.33 + spacing[0]*120;
+            let secondXCoord = canvas.width*0.33 + spacing[1]*120;
+            let thirdXCoord = canvas.width*0.33 + spacing[2]*120;
+            ctxDraw.fillText(letterToDraw, thirdXCoord, canvas.height*0.3);
+            ctxDraw.fillText(letterToDraw, firstXCoord, canvas.height*0.3);
+            ctxDraw.fillText(letterToDraw, secondXCoord, canvas.height*0.3);
+        } else if (spacing.length == 2) {
             let firstXCoord = canvas.width*0.33 + spacing[0]*120;
             let secondXCoord = canvas.width*0.33 + spacing[1]*120;
             ctxDraw.fillText(letterToDraw, firstXCoord, canvas.height*0.3);
@@ -116,7 +159,14 @@ function drawLetter(letterToDraw, ctxDraw, word) {
             ctxDraw.fillText(letterToDraw, xCoord, canvas.height*0.3);
         };
     } else if (wordLength == 7) {
-        if (spacing.length > 1) {
+        if (spacing.length == 3) {
+            let firstXCoord = canvas.width*0.33 + spacing[0]*100;
+            let secondXCoord = canvas.width*0.33 + spacing[1]*100;
+            let thirdXCoord = canvas.width*0.33 + spacing[2]*100;
+            ctxDraw.fillText(letterToDraw, firstXCoord, canvas.height*0.3);
+            ctxDraw.fillText(letterToDraw, secondXCoord, canvas.height*0.3);
+            ctxDraw.fillText(letterToDraw, thirdXCoord, canvas.height*0.3);
+        } else if (spacing.length == 2) {
             let firstXCoord = canvas.width*0.33 + spacing[0]*100;
             let secondXCoord = canvas.width*0.33 + spacing[1]*100;
             ctxDraw.fillText(letterToDraw, firstXCoord, canvas.height*0.3);
