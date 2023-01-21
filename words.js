@@ -49,7 +49,6 @@ function newGame() {
     listOfGuesses = [];
     rightGuessNumber = 0;
     myWord = newWord();
-    alert(myWord);
     update();
 };
 
